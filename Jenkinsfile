@@ -30,7 +30,9 @@ pipeline {
         docker {
           image 'maven:3.6.3-jdk-11-slim'
         }
-
+		when{
+		branch 'master'
+		}
       }
       steps {
         sh 'mvn package -DskipTests'
@@ -41,6 +43,9 @@ pipeline {
     stage('Docker Build and Publish') {
       agent any
       steps {
+		when{
+			branch 'master'
+		}
         script {
           docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
 
