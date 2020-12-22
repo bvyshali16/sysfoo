@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+  sysfoo:
+    image: vyshali16/sysfoo:latest
+    ports:
+      - 8888:8080
