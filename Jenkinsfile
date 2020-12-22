@@ -39,6 +39,7 @@ pipeline {
     }
 
     stage('Docker Build and Publish') {
+      agent any
       steps {
         sh '''docker.withRegistry(\'https://index.docker.io/v1/\', \'dockerlogin\') {
 
