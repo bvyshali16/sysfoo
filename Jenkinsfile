@@ -41,21 +41,24 @@ pipeline {
     stage('Docker Build and Publish') {
       agent any
       steps {
-        sh '''docker.withRegistry(\'https://index.docker.io/v1/\', \'dockerlogin\') {
+        script {
+          docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
 
-def dockerImage = docker.build("vyshali16/sysfoo:v${env.BUILD_ID}", "./")
+            def dockerImage = docker.build("vyshali16/sysfoo:v${env.BUILD_ID}", "./")
 
-dockerImage.push()
+            dockerImage.push()
 
-dockerImage.push("latest")
-dockerImage.push("dev")
+            dockerImage.push("latest")
+            dockerImage.push("dev")
 
-}'''
+          }
         }
-      }
 
+      }
     }
-    tools {
-      maven 'Maven 3.6.3'
-    }
+
   }
+  tools {
+    maven 'Maven 3.6.3'
+  }
+}
