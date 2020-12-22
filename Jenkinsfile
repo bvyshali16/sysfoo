@@ -30,10 +30,11 @@ pipeline {
         docker {
           image 'maven:3.6.3-jdk-11-slim'
         }
-		when{
+	
+      }
+	  when{
 		branch 'master'
 		}
-      }
       steps {
         sh 'mvn package -DskipTests'
         archiveArtifacts 'target/*.war'
@@ -42,10 +43,11 @@ pipeline {
 
     stage('Docker Build and Publish') {
       agent any
-      steps {
-		when{
+	  when{
 			branch 'master'
 		}
+      steps {
+		
         script {
           docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
 
